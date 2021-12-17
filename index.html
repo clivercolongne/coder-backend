@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form 
+        action="/api/productos"
+        method="post"
+        enctype="multipart/form-data"
+    >
+        Titulo: <input name="title"><br>
+        precio: <input name="page" type="number"><br>
+        Imagen: <input type="file" name="thumbnail"><br>
+        
+        <br><br>
+        <input type="submit">
+    </form>
+
+    <a href="/">Mostrar lista de productos</a>
+
+</body>
+</html>
