@@ -1,72 +1,38 @@
 const express = require('express')
-const Products = require('./prod/contenedor')
-const multer = require('multer')
+const Libreria = require('./prod/contenedor')
 const { Router } = express;
 
 const app = express();
+
 app.use(express.json())
 app.use(express.urlencoded({
-    extended: true
+    extended:true
 }))
 
-// SET FILE
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, 'uploads')
-    },
-    filename: function(req, file, cb) {
-        cb(null, file.originalname)
-    }
-})
-const upload = multer({ storage })
-app.use('/files', express.static('uploads'))
-
-
-// SET TEMPLATE ENGINE
-app.set('views', './views')
-app.set('view engine', 'ejs')
-
 const router = Router();
-const products = new Products(__dirname + "/data/productos.json")
+const libreria = new Libreria(__dirname + "/data/productos.json")
 
 router.get("/", (req, res) => {
     return res.json(libreria.list)
 })
-
 router.get("/:id", (req, res) => {
-    let id = req.params.id
+    let id =req.params.id
     return res.json(libreria.find(id))
 })
-
-router.post("/", upload.single('thumbnail'), (req, res) => {
-    let obj = req.body
-    obj.thumbnail = "/files/" + req.file.filename;
-
-
-    libreria.insert(obj)
-    console.log("New book added.")
-
-    return res.redirect("/list")
+router.post("/", (req, res) => {
+    let obj =req.body
+    return res.json(libreria.insert(obj))
 })
-
 router.put("/:id", (req, res) => {
-    let obj = req.body
-    let id = req.params.id
+    let obj =req.body
+    let id=req.params.id
     return res.json(libreria.update(id, obj))
+})
+router.delete("/:id", (req, res) => {
+    let id=req.params.id
+    return res.json(libreria.delete(id))
 })
 
 app.use("/api/productos", router)
-
-app.get("/", (req, res) => {
-    return res.render('ejs/form')
-})
-
-app.get("/list", (req, res) => {
-    
-    return res.render('ejs/list', {
-        list: libreria.list
-    })
-})
-
-
-app.listen(3000)
+app.use(express.static("./views"))
+app.listen(8080)
