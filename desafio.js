@@ -9,6 +9,10 @@ app.use(express.urlencoded({
     extended:true
 }))
 
+app.set('views', './views')
+app.set('view engine', 'ejs')
+
+
 const router = Router();
 const libreria = new Libreria(__dirname + "/data/productos.json")
 
@@ -34,5 +38,16 @@ router.delete("/:id", (req, res) => {
 })
 
 app.use("/api/productos", router)
-app.use(express.static("./views"))
+
+
+app.get('/', (req, res)=>{
+
+    return res.render('form')
+})
+app.get('/list', (req, res)=>{
+    return res.render('list', {
+        list:libreria.list
+        } )
+})
+
 app.listen(8080)
