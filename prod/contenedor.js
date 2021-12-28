@@ -1,7 +1,7 @@
 const fs = require('fs')
 
 class Libreria {
-    constructor(filename="productos.json") {
+    constructor(filename="./data/productos.json") {
         
         this.id = 0
         this.list = []

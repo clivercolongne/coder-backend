@@ -4,29 +4,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <title>Document</title>
 </head>
-<body>
+<body class="table-dark">
       
-    
-        <table>
-            <tr>
-                <th>Titulo</th>
-                <th>precio</th>
-                <th>Imagen</th>
-            </tr>
-            <% list.forEach((productos) => { %>
+    <% if (list.length == 0) {%>
+        <h2>No hay productos</h2>
+    <% } else { %>
+        <table class="table table-dark">
+            
+            <thead>
+              <tr>
                 
-                <tr>
-                    <td><%= productos.title %></td>
-                    <td><%= productos.price %></td>
-                    <td><img src="<%= productos.thumbnail %>" width="100px;"></td>
-                </tr>
+                <th scope="col">titulo</th>
+                <th scope="col">precio</th>
+                <th scope="col">imagen</th>
+              </tr>
+            </thead>
+            <% list.forEach((productos) => { %>
+            <tbody>
+              <tr>                
+                <td><%= productos.title %></td>              
+                <td><%= productos.price %></td>
+                <td><img src="<%= productos.thumbnail %>" width="100px;"></td>
+              </tr>
+              
+            </tbody>
+        
             <% }) %>
+            
         </table>
+        
     <% } %>
+   
+    <div class="text-primary bg-dark"> <button type="button" class="btn btn-primary"><a class="text-white" href="/">Ingresar nuevo producto</a></button></div>
 
-<a href="/">Ingresar nuevo producto</a>
+
 
 </body>
 </html>

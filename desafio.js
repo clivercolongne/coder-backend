@@ -45,9 +45,9 @@ app.get('/', (req, res)=>{
     return res.render('form')
 })
 app.get('/list', (req, res)=>{
-    return res.render('list', {
-        list:libreria.list
-        } )
+    return res.render('list', { list : libreria.list} )
+        
+      
 })
 
 app.listen(8080)
